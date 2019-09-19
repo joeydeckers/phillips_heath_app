@@ -9,7 +9,7 @@ export default class Login extends Component{
                 <TextInput placeholder = "Uw gebruikersnaam"/>
                 <TextInput placeholder = "Uw wachtwoord"/>
                 <TouchableOpacity>
-                    <Text>Inloggen</Text>
+                    <Text>Inloggden</Text>
                 </TouchableOpacity>
             </View>
         );
