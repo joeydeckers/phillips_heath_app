@@ -57,6 +57,7 @@ export default class Login extends Component{
                 <TouchableOpacity style = {styles.button} onPress = {this.loginUser}>
                     <Text style = {styles.buttonText}>Inloggen</Text>
                 </TouchableOpacity>
+                
             </View>
         );
     }
