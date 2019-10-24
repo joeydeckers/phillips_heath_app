@@ -5,8 +5,9 @@ import axios from 'axios'
 export default class Login extends Component{
 
     state = {
-        username: '',
-        password: ''
+        username: 'jaap@jaap.nl',
+        password: 'hoi123',
+        loginSuccess: false
     }
 
 
@@ -22,6 +23,7 @@ export default class Login extends Component{
         })
     }
 
+  
 
     loginUser = () =>{
         axios.post('http://hypefash.com/public/api/v1/client/login',{
@@ -29,11 +31,13 @@ export default class Login extends Component{
             password: this.state.password
         })
         .then((response)=>{
-            alert(response.data.sid);
+            alert(response.data.success);
+            this.setState({loginSuccess:response.data.success})
         })
         .catch((error)=>{
             alert(error);
         })
+        return this.state.loginSuccess;
     }
 
     render(){

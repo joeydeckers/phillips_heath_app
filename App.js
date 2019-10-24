@@ -12,24 +12,25 @@ import Login from './views/Login'
 import DoctorProfile from './views/DoctorProfile'
 import Chat from './views/Chat'
 import AddNutrtion from './views/AddNutrition'
+import NutritionLog from './views/NutritionLog'
 
 import {createSwitchNavigator, createAppContainer, createBottomTabNavigator, createDrawerNavigator } from 'react-navigation'
 
 const App = () => {
   return (
-    <AppContainer/>
+    <Login/>
   );
 };
 
 const AppSwitchNavigator = createSwitchNavigator({
-  Home: {screen:Chat},
+  Home: {screen:AddNutrtion},
 });
 
-const AppDrawerNavigator = createDrawerNavigator({
-  Home:{
-    screen: AddNutrtion
-  }
-});
+// const AppDrawerNavigator = createDrawerNavigator({
+//   Home:{
+//     screen: AddNutrtion
+//   }
+// });
 
 const AppContainer = createAppContainer(AppSwitchNavigator);
 

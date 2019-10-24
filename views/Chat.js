@@ -46,11 +46,11 @@ export default class Chat extends Component{
             keyExtractor={(x, i) => i}
             renderItem={({ item }) =>
                 <View style = {{flexDirection: 'row'}}>
-                    <View >
+                    <View>
                         {item.senderid == this.state.userid ? null : <Text>{item.message}</Text>}
                     </View>
-                    <View style = {styles.messageSend}>
-                        {item.recieverid == this.state.userid ? null : <Text>{item.message}</Text>}
+                    <View style = {styles.messageSendContainer}>
+                        {item.recieverid == this.state.userid ? null : <Text style = {styles.messageSend}>{item.message}</Text>}
                     </View>
                 </View>
             }
@@ -111,7 +111,12 @@ const styles = StyleSheet.create({
         color: '#fff',
         textAlign: 'center'
     },
+    messageSendContainer:{
+        backgroundColor: 'blue',
+        flexDirection: 'row',
+        justifyContent: 'flex-end'
+    },
     messageSend:{
-        backgroundColor: 'blue'
+        color: '#fff',
     }
 });

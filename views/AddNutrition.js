@@ -42,7 +42,7 @@ export default class AddNutrition extends Component{
             sid: this.state.sid
         })
         .then((response)=>{
-            alert(response.data);
+            alert(response.data.baseDose);
             this.setState({
                 baseDose: response.data.baseDose,
                 diffrenceBloodSugar: response.data.diffrenceBloodSugar,
