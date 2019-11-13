@@ -4,7 +4,7 @@
 
 import 'react-native';
 import React from 'react';
-import { loginUser }  from '../views/Login';
+import login  from '../views/Login';
 import mockAxios from 'axios';
 
 // Note: test renderer must be required after react-native.
@@ -12,6 +12,7 @@ import renderer from 'react-test-renderer';
 
 
 it('should call a loginUser function', done => {
+    console.log(login);
     loginUser().then(response => {
       expect(response).toEqual({
         data: {},
@@ -24,6 +25,7 @@ it('should call a loginUser function', done => {
     expect(mockAxios.request).toHaveBeenCalledTimes(1);
     expect(consoleErrorSpy).not.toHaveBeenCalled();
     done();
+    
   });
 
 

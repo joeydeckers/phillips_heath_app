@@ -9,9 +9,9 @@ export default class NutritionLog extends Component {
     }
 
     getNutritionLog = () => {
-        axios.get('http://hypefash.com/public/api/v1/client/insulin/list?sid=$2y$10$FHIRWIw/fZdROUZt2WPkee6dZMHCVYPeo3AtLw2zzYx1NHbJdSwma')
+        axios.get('http://hypefash.com/public/api/v1/client/insulin/list')
         .then((response) => {
-            alert(response.data.list); 
+            alert(response.data.status); 
         })
     }
 

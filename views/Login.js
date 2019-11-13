@@ -1,45 +1,8 @@
 import React, {Component} from 'react';
 import {View, Text, StyleSheet, TextInput, TouchableOpacity} from 'react-native';
-import axios from 'axios'
+import {connect} from 'react-redux'
 
-export default class Login extends Component{
-
-    state = {
-        username: 'jaap@jaap.nl',
-        password: 'hoi123',
-        loginSuccess: false
-    }
-
-
-    userNameHandler = val =>{
-        this.setState({
-            username: val
-        })
-    }
-
-    userPasswordHandler = val =>{
-        this.setState({
-            password: val
-        })
-    }
-
-  
-
-    loginUser = () =>{
-        axios.post('http://hypefash.com/public/api/v1/client/login',{
-            email: this.state.username,
-            password: this.state.password
-        })
-        .then((response)=>{
-            alert(response.data.success);
-            this.setState({loginSuccess:response.data.success})
-        })
-        .catch((error)=>{
-            alert(error);
-        })
-        return this.state.loginSuccess;
-    }
-
+class Login extends Component{
     render(){
         return(
             <View style = {styles.container}>
@@ -47,25 +10,54 @@ export default class Login extends Component{
                 <TextInput 
                     style = {styles.textInput} 
                     placeholder = "Uw gebruikersnaam"
-                    value = {this.state.username}
-                    onChangeText = {this.userNameHandler}
+                    value = {this.props.username}
+                    onChangeText = {this.props.setUsername}
                     autoCapitalize = 'none'
                 />
                 <TextInput 
                     style = {styles.textInput}
                     placeholder = "Uw wachtwoord"
-                    value = {this.state.password}
-                    onChangeText = {this.userPasswordHandler}
+                    value = {this.props.password}
+                    onChangeText = {this.props.setUserPassword}
                     autoCapitalize = 'none'
                 />
-                <TouchableOpacity style = {styles.button} onPress = {this.loginUser}>
+                <TouchableOpacity style = {styles.button} onPress = {() => this.props.loginUser()}>
                     <Text style = {styles.buttonText}>Inloggen</Text>
                 </TouchableOpacity>
-                
+                {/* <TouchableOpacity style = {styles.button} onPress = {this.loginUser}>
+                    <Text style = {styles.buttonText}>Inloggen</Text>
+                </TouchableOpacity> */}
             </View>
         );
     }
 }
+
+
+function mapStateToProps(state){
+    return{
+        username: state.username,
+        password: state.password
+    }
+}
+
+function mapDispatchToProps(dispatch){
+    return{
+        loginUser: () => dispatch({
+            type: 'LOGIN_USER',
+            //payload: user,
+        }),
+        setUsername: (username) => dispatch({
+            type: 'GET_USER_USERNAME',
+            payload:username
+        }),
+        setUserPassword: (password) => dispatch({
+            type: 'GET_USER_PASSWORD',
+            payload: password
+        })
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Login)
 
 const styles = StyleSheet.create({
     container:{
