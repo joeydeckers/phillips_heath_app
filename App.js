@@ -8,11 +8,9 @@
 
 import React, {Fragment} from 'react';
 import {View, Text} from 'react-native';
-import {Provider} from 'react-redux'
 import axios from 'axios'
 
 
-import counter from './store/counter'
 
 import Login from './views/Login'
 import DoctorProfile from './views/DoctorProfile'
@@ -24,8 +22,11 @@ import ReduxTest from './views/ReduxTest'
 
 import {createSwitchNavigator, createAppContainer, createBottomTabNavigator, createDrawerNavigator } from 'react-navigation'
 
-import {createStore} from 'redux'
+//import {createStore} from 'redux'
 
+import store from './src/store'
+import {Provider} from 'react-redux'
+ 
 const initialState = {
     username: '',
     password: '',
@@ -57,7 +58,7 @@ const reducer = (state = initialState, action) => {
 }
 
 
-const store = createStore(reducer);
+//const store = createStore(reducer);
 
 
 const App = () => {
