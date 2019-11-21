@@ -27,8 +27,8 @@ import {createSwitchNavigator, createAppContainer, createBottomTabNavigator, cre
 import {createStore} from 'redux'
 
 const initialState = {
-    username: '12345',
-    password: '123',
+    username: '',
+    password: '',
 }
 
 const reducer = (state = initialState, action) => {
@@ -49,9 +49,9 @@ const reducer = (state = initialState, action) => {
         })
         return {}
       case 'GET_USER_USERNAME':
-          return {username: action.payload}
+          return {...state, username: action.payload}
       case 'GET_USER_PASSWORD':
-          return {password: action.payload}
+          return {...state, password: action.payload}
     }
     return state;
 }
