@@ -29,6 +29,8 @@ it('should call a loginUser function', done => {
   });
 
 
+  //<Login username={} setUsername={() => }
+
     // expect(login.loginUser({
     //     email: this.state.username = 'jaap@jaap.nl',
     //     password: this.state.password = 'hoi123'}
