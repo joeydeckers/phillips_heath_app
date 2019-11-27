@@ -26,11 +26,6 @@ import {createSwitchNavigator, createAppContainer, createBottomTabNavigator, cre
 
 import store from './src/store'
 import {Provider} from 'react-redux'
- 
-const initialState = {
-    username: '',
-    password: '',
-}
 
 const reducer = (state = initialState, action) => {
     switch(action.type){

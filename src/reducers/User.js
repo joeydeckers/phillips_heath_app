@@ -19,10 +19,10 @@
 let initialState = {
     isLoading: false,
     error: null,
-    sid: '',
+    sid: 'sid',
 }
 
-export default quotes = (state = initialState, action) => {
+export default user = (state = initialState, action) => {
     switch (action.type) {
         case 'GET_USER_INFO':
             return Object.assign({}, state, { isLoading: true })

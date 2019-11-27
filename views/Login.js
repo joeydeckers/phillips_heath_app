@@ -37,6 +37,8 @@ class Login extends Component{
                 {/* <TouchableOpacity style = {styles.button} onPress = {this.loginUser}>
                     <Text style = {styles.buttonText}>Inloggen</Text>
                 </TouchableOpacity> */}
+
+                <Text>{this.props.sid}</Text>
             </View>
         );
     }
@@ -67,9 +69,13 @@ class Login extends Component{
 //     }
 // }
 
-const mapStateToProps = state => ({
-    user: state.username
-})
+function mapStateToProps(state){
+    return{
+        sid: state.sid
+    }
+}
+
+// value setters maken
 
 function mapDispatchToProps(dispatch) {
     return {
