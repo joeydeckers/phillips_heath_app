@@ -1,36 +1,49 @@
 import React, { Component } from 'react'
-import { SafeAreaView, View, FlatList, StyleSheet, Text } from 'react-native'
+import { SafeAreaView, View, FlatList, StyleSheet, Text, TouchableOpacity } from 'react-native'
 import axios from 'axios'
 import { Colors } from 'react-native/Libraries/NewAppScreen'
-
+import Icon from 'react-native-vector-icons/Feather';
 
 export default class NutritionLog extends Component {
 
     state = {
         nutritionLog: [],
-
+        day: ''
     }
 
     getNutritionLog = (hal) => {
-        axios.get('http://hypefash.com/public/api/v1/client/meals/list?sid=$2y$10$rUUP/U9TfxGWImRtY.5zVOQbmJkocf6Pb8yKEHKwtX7yNlRgHsYCC&day='+ hal)
+        axios.get('http://hypefash.com/public/api/v1/client/meals/list?sid=$2y$10$rUUP/U9TfxGWImRtY.5zVOQbmJkocf6Pb8yKEHKwtX7yNlRgHsYCC&day=' + hal)
             .then((response) => {
                 this.setState({ nutritionLog: response.data });
-                console.log(response.data);
-                console.log(this.state.nutritionLog)
+            
+                
             })
     }
 
     componentDidMount() {
+        
         var date = new Date().getDate(); //Current Date
         var month = new Date().getMonth() + 1; //Current Month
         var year = new Date().getFullYear(); //Current Year
 
+        
+       
         var hal = year.toString() + '-' + month.toString() + '-' + date.toString();
-
-
         this.getNutritionLog(hal);
     }
 
+    goWeekBack(day)
+    {
+        var backWeek = new Date(day);
+        backWeek.setDate(backWeek.getDate() -7);
+
+        var backWeekDate = backWeek.getDate();
+        var backWeekMonth = backWeek.getMonth() + 1;
+        var backWeekYear = backWeek.getFullYear();
+        var dateBackWeek = backWeekYear.toString() + '-' + backWeekMonth.toString() + '-' + backWeekDate.toString();
+        this.getNutritionLog(dateBackWeek);
+     
+    }
 
     render() {
         return (
@@ -62,7 +75,14 @@ export default class NutritionLog extends Component {
                     </SafeAreaView>
 
                 </View>
-
+                <View style={styles.icon1}>
+                    <View style={styles.icon2}>
+                        <TouchableOpacity  onPress={this.goWeekBack(this.state.day)} ><View><Icon name="chevrons-left" size={42} color="#4486FF" /></View></TouchableOpacity>
+                        <TouchableOpacity ><View><Icon name="chevron-left" size={42} color="#4486FF" /></View></TouchableOpacity>
+                        <TouchableOpacity ><View><Icon name="chevron-right" size={42} color="#4486FF" /></View></TouchableOpacity>
+                        <TouchableOpacity ><View><Icon name="chevrons-right" size={42} color="#4486FF" /></View></TouchableOpacity>
+                    </View>
+                </View>
 
             </View>
         )
@@ -143,6 +163,22 @@ const styles = StyleSheet.create({
         fontSize: 12,
         alignSelf: 'flex-start',
         textAlign: 'left'
+    },
+    icon1: {
+
+        marginTop: 10,
+        alignItems: 'center',
+
+
+
+    },
+    icon2: {
+
+        flexDirection: 'row',
+        alignItems: 'center',
+
+
+
     },
 
 });
