@@ -45,6 +45,8 @@ test('Test user login', async (dispatch) => {
 
   //<Login username={} setUsername={() => }
 
+  //<Login username={} setUsername={() => }
+
     // expect(login.loginUser({
     //     email: this.state.username = 'jaap@jaap.nl',
     //     password: this.state.password = 'hoi123'}

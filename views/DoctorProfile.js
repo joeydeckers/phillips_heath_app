@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import {View, Text, StyleSheet, TextInput, TouchableOpacity, ScrollView,Image,Button} from 'react-native';
+import Icon from 'react-native-vector-icons/Feather';
 
 export default class Login extends Component{
     render(){
@@ -11,20 +12,34 @@ export default class Login extends Component{
                     />
                     <Text style ={styles.doctorTitle}> Dokter Baudet </Text>
                 </View> 
-                <View >
+                
+                <View style ={styles.containerInfoStrokesFull}>
+                    <View style ={styles.containerInfoStrokes}>                        
+                        <View style = {styles.containerInfo}>                    
+                        <Text style ={styles.passwordIcon}><Icon name="activity" size={42} color="#000" /></Text>  
+                            <Text style ={styles.doctorInfoText2}>Huisartsenpraktijk De pauper</Text>  
+                        </View>       
+                    </View>
+                    <View style ={styles.containerInfoStrokes}>                    
+                        <View style = {styles.containerInfo}>                    
+                        <Text style ={styles.passwordIcon}><Icon name="mail" size={42} color="#000" /></Text>  
+                            <Text style ={styles.doctorInfoText2}>thierry@fvd.nl</Text>        
+                                        
+                        </View>       
+                    </View>
+                    <View style ={styles.containerInfoStrokes}>                    
+                        <View style = {styles.containerInfo}>                    
+                        <Text style ={styles.passwordIcon}><Icon name="phone-call" size={42} color="#000" /></Text> 
+                            <Text style ={styles.doctorInfoText2}>0493-3265874</Text>        
+                                        
+                        </View>       
+                    </View>
+                    </View>
+                    <View >
                     <TouchableOpacity>
                     <Text style ={styles.speakButton}>Spreek met je dokter</Text>
                     </TouchableOpacity>   
                 </View> 
-                <Text style ={styles.doctorInfoText}> Informatie</Text>
-                <View style = {styles.containerInfo}>                    
-                    <Image style = {styles.doctorImage2}                   
-                    source={require('./../Images/TestImage2.jpg')}
-                    />  
-                    <Text style ={styles.doctorInfoText2}> Huisartsenpraktijk Forum voor Gezondheid</Text>        
-                                   
-                </View>       
-                
             </ScrollView>
         );
     }
@@ -50,7 +65,7 @@ const styles = StyleSheet.create({
         padding: 25,
         justifyContent: 'center',
         alignItems:'center',
-        backgroundColor: '#DADADA',
+        backgroundColor: '#F1F1F1',
 
     },
     speakButton:{
@@ -61,9 +76,16 @@ const styles = StyleSheet.create({
         backgroundColor:'#4486FF',
         borderRadius:8,
         margin: 25,
-        marginTop: 10,
+        marginTop: 30,
         marginBottom: 10,
         height:40,
+    },
+    passwordIcon:{
+        
+        marginLeft: 8  ,
+        marginTop: 8,
+        marginRight: 8,
+        
     },
     doctorInfoText:{
         fontWeight:'bold',
@@ -74,7 +96,11 @@ const styles = StyleSheet.create({
     doctorInfoText2:{
         padding:10,
         textAlign :"center", 
-        fontSize: 16,
+        fontSize: 20,
+        marginTop: 2,
+        marginLeft: 10, 
+        
+        
     },
     doctorImage2:{
         height:75,
@@ -88,6 +114,13 @@ const styles = StyleSheet.create({
     },
     containerInfo:{
         flexDirection:"row",
+    },
+    containerInfoStrokes:{
+        marginTop: 20,
+    },
+    containerInfoStrokesFull:{
+        padding:20,
+
     },
         
     
