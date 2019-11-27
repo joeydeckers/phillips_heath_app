@@ -34,6 +34,23 @@ export default class NutritionLog extends Component {
         this.getNutritionLog(currentDay);
     }
 
+    checkToday() {
+        
+        var date = new Date().getDate(); //Current Date
+        var month = new Date().getMonth() + 1; //Current Month
+        var year = new Date().getFullYear(); //Current Year
+
+        
+       
+        var currentDay = year.toString() + '-' + month.toString() + '-' + date.toString();
+        if(this.state.day == currentDay){
+            return(<Text style={styles.containerText}>Waardes van vandaag:</Text>);
+        }
+        else{
+            return(<Text style={styles.containerText}>Waardes van {this.state.day}:</Text>);
+        }
+    }
+
 
     goWeekBack(){
         this.setState({
@@ -97,7 +114,7 @@ export default class NutritionLog extends Component {
         }
         return (
             <View style={styles.container}>
-                <Text style={styles.containerText}>Waardes van {this.state.day}:</Text>
+               {this.checkToday()}
                 <View style={styles.tableTopContainer}><View style={styles.newRow}><View style={styles.item}><Text style={styles.headTitle}>Naam</Text></View><View style={styles.item}><Text style={styles.headTitle}>Koolh.</Text></View><View style={styles.item}><Text style={styles.headTitle}>Datum</Text></View></View>
                 </View>
                 <View style={styles.tableBottomContainer}>
