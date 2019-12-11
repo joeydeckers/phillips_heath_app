@@ -1,20 +1,4 @@
-// const user = (state = [], action) => {
-//     switch (action.type){
-//         case 'SET_USER_INFO':
-//         return[
-//             ...state,{
-//                 sid: action.username,
-//             }
-//         ]
-//         default:
-//             return state
-//     }
-
-// }
-
-// export default user
-
-
+import { AsyncStorage} from 'react-native';
 
 let initialState = {
     isLoading: false,
@@ -27,7 +11,7 @@ export default user = (state = initialState, action) => {
         case 'GET_USER_INFO':
             return Object.assign({}, state, { isLoading: true })
         case 'SET_USER_INFO':
-            alert(action.payload);
+            AsyncStorage.setItem('userToken', JSON.stringify(action.payload));
             return Object.assign({}, state, { sid: action.payload, isLoading: false })
         case 'LOAD_QUOTE_FAILURE':
             alert("Gegevens zijn fout!")
