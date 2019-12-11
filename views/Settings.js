@@ -1,8 +1,14 @@
 import React, {Component} from 'react';
-import {View, Text, StyleSheet, TextInput, TouchableOpacity, ScrollView,Image,Button} from 'react-native';
+import {View, Text, StyleSheet, TextInput, TouchableOpacity, ScrollView,AsyncStorage,Button} from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
 
 export default class Login extends Component{
+
+    removeToken = async () => {
+        const userToken = await AsyncStorage.removeItem('userToken');
+        this.props.navigation.navigate('Login');
+      };
+
     render(){
         return(
             <ScrollView style = {styles.container}>  
@@ -29,7 +35,7 @@ export default class Login extends Component{
                         </TouchableOpacity> 
                     </View> 
                     <View style = {styles.containerButton}>                     
-                        <TouchableOpacity style = {styles.buttonText}>
+                        <TouchableOpacity style = {styles.buttonText} onPress = {this.removeToken}>
                         <Text style ={styles.passwordIcon}><Icon name="log-out" size={42} color="#000" /></Text>
                         <Text style ={styles.passwordButtonText}>Uitloggen</Text>
                         </TouchableOpacity> 

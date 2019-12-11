@@ -4,7 +4,10 @@ import {connect} from 'react-redux'
 import * as user from '../src/actions'
 
 class Login extends Component{
-
+    static navigationOptions = {
+        header: null,
+      };
+      
     getUserInfo = (text) =>{
         this.props.dispatch(register(text))
     }

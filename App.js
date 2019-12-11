@@ -20,18 +20,14 @@ class AuthLoadingScreen extends React.Component {
 async getToken() {
   try {
     let userToken = await AsyncStorage.getItem("userToken");
-    console.log('1');
     if(JSON.parse(userToken)){
       this.props.navigation.navigate('App');
-      console.log('2');
     }
     else{
       this.props.navigation.navigate('Login');
-      console.log('3');
     }
   } catch (error) {
     this.props.navigation.navigate('Login');
-    console.log('4');
   }
 }
 
@@ -55,13 +51,12 @@ componentDidMount() {
           <Text style={{color: '#000',
           fontSize: 50,
           fontFamily: 'Iowan Old Style',
-          fontWeight: 'bold'}}>Doctor Phillips.
+          fontWeight: 'bold'}}>Doctor Phillips
           </Text>
           <ActivityIndicator  size="large" color="#000"/>
       </View>
       );
     }}
-
 
 
     const Stack1 = createStackNavigator({
