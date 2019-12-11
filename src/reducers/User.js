@@ -19,7 +19,7 @@
 let initialState = {
     isLoading: false,
     error: null,
-    sid: 'sid',
+    sid: '',
 }
 
 export default user = (state = initialState, action) => {

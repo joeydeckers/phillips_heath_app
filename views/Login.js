@@ -9,6 +9,23 @@ class Login extends Component{
         this.props.dispatch(register(text))
     }
 
+    state = {
+        loginEmail : '',
+        loginPassword : ''
+    }
+
+    loginEmailHandler = val => {
+        this.setState({
+            loginEmail: val
+        });
+    }
+
+    loginPasswordHandler = val => {
+        this.setState({
+            loginPassword: val
+        })
+    }
+
     render(){
         return(
             <View style = {styles.container}>
@@ -20,18 +37,25 @@ class Login extends Component{
                     //onChangeText = {this.props.setUsername}
                     //onChangeText = {(text) => this.setState({text})}
                     autoCapitalize = 'none'
+                    value = {this.state.loginEmail} 
+                    onChangeText = {this.loginEmailHandler}
                 />
                 <TextInput 
                     style = {styles.textInput}
                     placeholder = "Uw wachtwoord"
+                    secureTextEntry={true}
                     //value = {this.props.password}
                     //onChangeText = {this.props.setUserPassword}
                     autoCapitalize = 'none'
+                    value = {this.state.loginPassword} 
+                    onChangeText = {this.loginPasswordHandler}
                 />
                 {/* <TouchableOpacity style = {styles.button} onPress = {() => this.props.loginUser()}>
                     <Text style = {styles.buttonText}>Inloggen</Text>
                 </TouchableOpacity> */}
-                <TouchableOpacity style = {styles.button} onPress = {() => this.props.login()}>
+                <TouchableOpacity style = {styles.button} onPress = {() => this.props.login({username:this.state.loginEmail, password: this.state.loginPassword})}>
+                {/* <TouchableOpacity style = {styles.button} onPress = {() => alert(this.state.loginPassword)}> */}
+
                     <Text style = {styles.buttonText}>Inloggen</Text>
                 </TouchableOpacity>
                 {/* <TouchableOpacity style = {styles.button} onPress = {this.loginUser}>
@@ -79,7 +103,7 @@ function mapStateToProps(state){
 
 function mapDispatchToProps(dispatch) {
     return {
-        login: () => dispatch(user.login({username: '12345', password: '123'}))
+        login: (userInfo) => {dispatch(user.login({username: userInfo.username, password: userInfo.password}));}
     }
 }
 
