@@ -12,6 +12,7 @@ export default user = (state = initialState, action) => {
             return Object.assign({}, state, { isLoading: true })
         case 'SET_USER_INFO':
             AsyncStorage.setItem('userToken', JSON.stringify(action.payload));
+            this.props.navigation.navigate('App');
             return Object.assign({}, state, { sid: action.payload, isLoading: false })
         case 'LOAD_QUOTE_FAILURE':
             alert("Gegevens zijn fout!")
