@@ -12,7 +12,6 @@ import Chat from './views/Chat'
 import AddNutrtion from './views/AddNutrition'
 import Settings from './views/Settings'
 import NutritionLog from './views/NutritionLog'
-import ReduxTest from './views/ReduxTest'
 import store from './src/store'
 import {Provider} from 'react-redux'
 
@@ -62,6 +61,7 @@ componentDidMount() {
       </View>
       );
     }}
+
 
 
     const Stack1 = createStackNavigator({
