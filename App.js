@@ -18,7 +18,6 @@ import Chat from './views/Chat'
 import AddNutrtion from './views/AddNutrition'
 import NutritionLog from './views/NutritionLog'
 import ReduxTest from './views/ReduxTest'
-import Settings from './views/Settings'
 
 
 import {createSwitchNavigator, createAppContainer, createBottomTabNavigator, createDrawerNavigator } from 'react-navigation'
@@ -28,30 +27,30 @@ import {createSwitchNavigator, createAppContainer, createBottomTabNavigator, cre
 import store from './src/store'
 import {Provider} from 'react-redux'
 
-const reducer = (state = initialState, action) => {
-    switch(action.type){
-      case 'LOGIN_USER':
-        //alert(state.username);
-        //alert(state.password);
-          axios.post('http://hypefash.com/public/api/v1/client/login',{
-            username: state.username,
-            password: state.password
-        })
-        .then((response)=>{
-            alert(response.data.sid);
-            //this.setState({loginSuccess:response.data.success})
-        })
-        .catch((error)=>{
-          alert(error);
-        })
-        return {}
-      case 'GET_USER_USERNAME':
-          return {...state, username: action.payload}
-      case 'GET_USER_PASSWORD':
-          return {...state, password: action.payload}
-    }
-    return state;
-}
+// const reducer = (state = initialState, action) => {
+//     switch(action.type){
+//       case 'LOGIN_USER':
+//         //alert(state.username);
+//         //alert(state.password);
+//           axios.post('http://hypefash.com/public/api/v1/client/login',{
+//             username: state.username,
+//             password: state.password
+//         })
+//         .then((response)=>{
+//             alert(response.data.sid);
+//             //this.setState({loginSuccess:response.data.success})
+//         })
+//         .catch((error)=>{
+//           alert(error);
+//         })
+//         return {}
+//       case 'GET_USER_USERNAME':
+//           return {...state, username: action.payload}
+//       case 'GET_USER_PASSWORD':
+//           return {...state, password: action.payload}
+//     }
+//     return state;
+// }
 
 
 //const store = createStore(reducer);

@@ -19,7 +19,7 @@
 let initialState = {
     isLoading: false,
     error: null,
-    sid: 'sid',
+    sid: '',
 }
 
 export default user = (state = initialState, action) => {
@@ -27,8 +27,11 @@ export default user = (state = initialState, action) => {
         case 'GET_USER_INFO':
             return Object.assign({}, state, { isLoading: true })
         case 'SET_USER_INFO':
-            //alert(action.payload);
+            alert(action.payload);
             return Object.assign({}, state, { sid: action.payload, isLoading: false })
+        case 'LOAD_QUOTE_FAILURE':
+            alert("Gegevens zijn fout!")
+            return "failed";
         
         default:
             return state

@@ -6,32 +6,44 @@ import 'react-native';
 import React from 'react';
 import login  from '../views/Login';
 import mockAxios from 'axios';
+<<<<<<< HEAD
+import * as user from '../src/actions'
+import configureMockStore from 'redux-mock-store'
+import thunk from 'redux-thunk'
+=======
 import * as user from '../src/actions';
+>>>>>>> master
 
 
 // Note: test renderer must be required after react-native.
 import renderer from 'react-test-renderer';
+<<<<<<< HEAD
+const middlewares = [thunk];
+=======
 import store from '../src/store';
+>>>>>>> master
 
+const mockStore = configureMockStore(middlewares)
 
-// it('should call a loginUser function', done => {
+// test('Test user login', async () => {
+//   const store = mockStore({ user: [] })
 
-
-//     // console.log(login);
-//     // loginUser().then(response => {
-//     //   expect(response).toEqual({
-//     //     data: {},
-//     //   });
-//     // });
-//     // expect(mockAxios.request).toHaveBeenCalledWith({
-//     //   method: 'post',
-//     //   url: 'http://hypefash.com/public/api/v1/client/login'
-//     // });
-//     // expect(mockAxios.request).toHaveBeenCalledTimes(1);
-//     // expect(consoleErrorSpy).not.toHaveBeenCalled();
-//     // done();
-    
+//   console.log(user.login());
+//   return store.dispatch(user.login({username: '12345', password: '123'}))
+//   .then((data) => {
+//     expect(data.response.sid).toBe(data.response.sid);
 //   });
+<<<<<<< HEAD
+// })
+
+test('Test user login', async () => {
+  dispatch = jest.fn()
+  getState = () => {}
+  await user.login({username: '12345', password: '123'})(dispatch, getState)
+  expect(dispatch.mock.calls[0][0]).toBe({ type: 'SET_USER_INFO', payload: response.data.sid })
+  //expect(data.response.sid).toBe(data.response.sid);
+})
+=======
 
 // test('Test user login', async (dispatch) => {
 //   console.log(user.login());
@@ -47,6 +59,7 @@ describe('#TestUsers', () => {
       username: '12345',
       password: '123'
     };
+>>>>>>> master
 
     return store.dispatch(user.login(users.username, users.password))
       .then(() => {
@@ -59,7 +72,6 @@ describe('#TestUsers', () => {
     
   });
 });
-
 
   //<Login username={} setUsername={() => }
 
