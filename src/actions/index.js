@@ -9,7 +9,7 @@ export const login = (user) => {
             password: user.password
         })
         .then(function (response) {
-            //alert(response.data.sid)
+            alert(response.data.sid)
             dispatch({ type: 'SET_USER_INFO', payload: response.data.sid })
         }).catch(function (error) {
             dispatch({ type: 'LOAD_QUOTE_FAILURE', payload: error })

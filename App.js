@@ -18,6 +18,7 @@ import Chat from './views/Chat'
 import AddNutrtion from './views/AddNutrition'
 import NutritionLog from './views/NutritionLog'
 import ReduxTest from './views/ReduxTest'
+import Settings from './views/Settings'
 
 
 import {createSwitchNavigator, createAppContainer, createBottomTabNavigator, createDrawerNavigator } from 'react-navigation'

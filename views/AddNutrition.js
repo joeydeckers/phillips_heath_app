@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {View, Text, StyleSheet, TextInput, TouchableOpacity} from 'react-native';
 import axios from 'axios'
 
+
 export default class AddNutrition extends Component{
 
     state = {
@@ -37,17 +38,17 @@ export default class AddNutrition extends Component{
     getInsulin = () =>{
         axios.post('http://hypefash.com/public/api/v1/client/insulin/calculate',{
             carbs: this.state.carbs,
-            actualBloodSugar: this.state.actualBloodSugar,
-            targetBloodSugar: this.state.targetBloodSugar,
+            actualbloodsugar: this.state.actualBloodSugar,
+            differencebloodsugar: this.state.targetBloodSugar,
             sid: this.state.sid
         })
         .then((response)=>{
-            alert(response.data.baseDose);
+            alert(response.data[0].basedose)
             this.setState({
-                baseDose: response.data.baseDose,
-                diffrenceBloodSugar: response.data.diffrenceBloodSugar,
-                correctionDose: response.data.correctionDose,
-                fullDose: response.data.fullDose
+                baseDose: response.data[0].baseDose,
+                diffrenceBloodSugar: response.data[0].diffrenceBloodSugar,
+                correctionDose: response.data[0].correctionDose,
+                fullDose: response.data[0].fullDose
             })
         })
         .catch((error)=>{
