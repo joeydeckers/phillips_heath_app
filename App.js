@@ -60,7 +60,7 @@ const reducer = (state = initialState, action) => {
 const App = () => {
   return (
     <Provider store = {store}>
-      <NutritionLog/>
+      <Login/>
     </Provider>
   );
 };

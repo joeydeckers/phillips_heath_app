@@ -57,7 +57,7 @@ export default class NutritionLog extends Component {
             option: 'weekback',
             loading: true
         })
-        var date = new Date(this.state.day).getDate() - 7; //Current Date
+        var date = new Date(this.state.day).getDate()l; //Current Date
         var month = new Date(this.state.day).getMonth() + 1; //Current Month
         var year = new Date(this.state.day).getFullYear(); //Current Year
 
