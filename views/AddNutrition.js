@@ -1,7 +1,8 @@
 import React, {Component} from 'react';
 import {View, Text, StyleSheet, TextInput, TouchableOpacity} from 'react-native';
 import axios from 'axios'
-
+import {connect} from 'react-redux'
+import * as nutrition from '../src/actions/NutitionAction'
 
 export default class AddNutrition extends Component{
 
