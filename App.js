@@ -9,7 +9,8 @@ import Icon from 'react-native-vector-icons/Feather';
 import Login from './views/Login'
 import DoctorProfile from './views/DoctorProfile'
 import Chat from './views/Chat'
-import AddNutrtion from './views/AddNutrition'
+import AddNutrition from './views/AddNutrition'
+import NutritionResult from './views/NutritionResult'
 import Settings from './views/Settings'
 import NutritionLog from './views/NutritionLog'
 import store from './src/store'
@@ -72,9 +73,12 @@ componentDidMount() {
     
     
     const Stack2 = createStackNavigator({
-      AddNutrtion: {
-        screen: AddNutrtion
+      AddNutrition: {
+        screen: AddNutrition
       },
+      NutritionResult:{
+        screen: NutritionResult
+      }
       
     });
     

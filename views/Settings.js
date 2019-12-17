@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {View, Text, StyleSheet, TextInput, TouchableOpacity, ScrollView,AsyncStorage,Button} from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
+import axios from 'axios';
 
 export default class Login extends Component{
 
@@ -9,13 +10,17 @@ export default class Login extends Component{
         this.props.navigation.navigate('Login');
       };
 
+    getUserInfo(){
+        axios.get('');
+    }  
+
     render(){
         return(
             <ScrollView style = {styles.container}>  
                 <Text style ={styles.settingsHeader}><Text style ={styles.passwordIcon}><Icon name="settings" size={42} color="#000" /></Text> Instellingen</Text>  
                 
                 <View style = {styles.containerAccountSettings} >
-                 
+{/*                  
                     <View style = {styles.containerButton}>                     
                         <TouchableOpacity style = {styles.buttonText}>
                         <Text style ={styles.passwordIcon}><Icon name="shield" size={42} color="#000" /></Text>
@@ -33,7 +38,13 @@ export default class Login extends Component{
                         <Text style ={styles.passwordIcon}><Icon name="lock" size={42} color="#000" /></Text>
                         <Text style ={styles.passwordButtonText}>Privacy instellingen</Text>
                         </TouchableOpacity> 
-                    </View> 
+                    </View>  */}
+                    <View style = {styles.containerButton}>                     
+                        <Text style ={styles.passwordButtonText}>Email:</Text>
+                        <Text style ={styles.passwordButtonText}>Bloedwaarde:</Text>
+                        <Text style ={styles.passwordButtonText}>Naam:</Text>
+
+                    </View>
                     <View style = {styles.containerButton}>                     
                         <TouchableOpacity style = {styles.buttonText} onPress = {this.removeToken}>
                         <Text style ={styles.passwordIcon}><Icon name="log-out" size={42} color="#000" /></Text>

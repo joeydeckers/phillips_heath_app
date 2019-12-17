@@ -51,13 +51,10 @@ export default class AddNutrition extends Component{
 
         })
         .then((response)=>{
-            alert(response.data[0].basedose)
-            this.setState({
-                baseDose: response.data[0].baseDose,
-                diffrenceBloodSugar: response.data[0].diffrenceBloodSugar,
-                correctionDose: response.data[0].correctionDose,
-                fullDose: response.data[0].fullDose
-            })
+            this.props.navigation.navigate('NutritionResult', {
+                baseDose: response.data[0].basedose,
+              });
+
         })
         .catch((error)=>{
             alert(error);
@@ -83,7 +80,7 @@ export default class AddNutrition extends Component{
                 <TextInput placeholder="Huidige koolhydraten"  onChangeText = {this.carbsHandler} keyboardType={'numeric'} style = {styles.textInput}></TextInput>
                 <TextInput placeholder="Huidige bloedspiegel" onChangeText = {this.actualBloodSugarHandler} keyboardType={'numeric'} style = {styles.textInput}></TextInput>
                 <TextInput placeholder="Gewenste bloedspiegel" onChangeText = {this.targetBloodSugarHandler} keyboardType={'numeric'} style = {styles.textInput}></TextInput>
-                <TouchableOpacity style = {styles.button} onPress={() => { this.getInsulin(); this.getInsulinMeal()}}>
+                <TouchableOpacity style = {styles.button} onPress={() => { this.getInsulinMeal(); this.getInsulin()}}>
                     <Text style = {styles.buttonText}>Krijg waarde</Text>
                 </TouchableOpacity>
             </View>
