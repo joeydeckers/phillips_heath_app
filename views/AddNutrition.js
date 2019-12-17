@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {View, Text, StyleSheet, TextInput, TouchableOpacity} from 'react-native';
+import {View, Text, StyleSheet, TextInput, TouchableOpacity,AsyncStorage} from 'react-native';
 import axios from 'axios'
 import {connect} from 'react-redux'
 import * as nutrition from '../src/actions/NutitionAction'
@@ -10,11 +10,11 @@ export default class AddNutrition extends Component{
         carbs: '',
         actualBloodSugar: '',
         targetBloodSugar: '',
-        sid: '$2y$10$FHIRWIw/fZdROUZt2WPkee6dZMHCVYPeo3AtLw2zzYx1NHbJdSwma',
         baseDose: '',
         diffrenceBloodSugar: '',
         correctionDose: '',
-        fullDose: ''
+        fullDose: '',
+        meal: ''
     }
 
     carbsHandler = val => {
@@ -29,19 +29,26 @@ export default class AddNutrition extends Component{
         })
     }
 
+    mealHandler = val => {
+        this.setState({
+            meal: val
+        })
+    }
+
     targetBloodSugarHandler = val => {
         this.setState({
             targetBloodSugar: val
         })
     }
 
-
-    getInsulin = () =>{
-        axios.post('http://hypefash.com/public/api/v1/client/insulin/calculate',{
+ 
+    getInsulin = async () => {
+        const userToken = await AsyncStorage.getItem('userToken');
+        axios.post('http://hypefash.com/public/api/v1/client/insulin/calculate?sid=' + JSON.parse(userToken),{
             carbs: this.state.carbs,
             actualbloodsugar: this.state.actualBloodSugar,
             differencebloodsugar: this.state.targetBloodSugar,
-            sid: this.state.sid
+
         })
         .then((response)=>{
             alert(response.data[0].basedose)
@@ -56,15 +63,27 @@ export default class AddNutrition extends Component{
             alert(error);
         })
     }    
+    getInsulinMeal = async () => {
+        const userToken = await AsyncStorage.getItem('userToken');
+        axios.post('http://hypefash.com/public/api/v1/client/meals/add?sid=' + JSON.parse(userToken),{
+            name: this.state.meal,
+            daypart: 1,
+            carbohydrates: this.state.carbs,
+
+        })
+        .catch((error)=>{
+            alert(error);
+        })
+    }    
 
     render(){
         return(
             <View style = {styles.container}>
-                <TextInput placeholder="Maaltijdnaam" style = {styles.textInput}></TextInput>
+                <TextInput placeholder="Maaltijdnaam" onChangeText = {this.mealHandler} style = {styles.textInput}></TextInput>
                 <TextInput placeholder="Huidige koolhydraten"  onChangeText = {this.carbsHandler} keyboardType={'numeric'} style = {styles.textInput}></TextInput>
                 <TextInput placeholder="Huidige bloedspiegel" onChangeText = {this.actualBloodSugarHandler} keyboardType={'numeric'} style = {styles.textInput}></TextInput>
                 <TextInput placeholder="Gewenste bloedspiegel" onChangeText = {this.targetBloodSugarHandler} keyboardType={'numeric'} style = {styles.textInput}></TextInput>
-                <TouchableOpacity style = {styles.button} onPress = {this.getInsulin}>
+                <TouchableOpacity style = {styles.button} onPress={() => { this.getInsulin(); this.getInsulinMeal()}}>
                     <Text style = {styles.buttonText}>Krijg waarde</Text>
                 </TouchableOpacity>
             </View>

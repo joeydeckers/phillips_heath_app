@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {View, Text, StyleSheet, TextInput, TouchableOpacity, FlatList} from 'react-native';
+import {View, Text, StyleSheet, TextInput, TouchableOpacity, FlatList, AsyncStorage}  from 'react-native';
 import axios from 'axios'
 
 export default class Chat extends Component{
@@ -11,8 +11,9 @@ export default class Chat extends Component{
         };
 
 
-    getMessages = () => {
-        axios.get('http://hypefash.com/public/api/v1/message/getall/patient?sid=$2y$10$FHIRWIw/fZdROUZt2WPkee6dZMHCVYPeo3AtLw2zzYx1NHbJdSwma&recieverid=1')
+    getMessages = async () => {
+        const userToken = await AsyncStorage.getItem('userToken');
+        axios.get('http://hypefash.com/public/api/v1/message/getall/patient?sid=' + JSON.parse(userToken) + '&recieverid=1')
         .then((response) => {
             this.setState({
                 chatMessages:response.data.chats
@@ -23,9 +24,9 @@ export default class Chat extends Component{
         })
     }
 
-    sendMessage = () =>{
-        axios.post('http://hypefash.com/public/api/v1/message/add',{
-            sid: '$2y$10$FHIRWIw/fZdROUZt2WPkee6dZMHCVYPeo3AtLw2zzYx1NHbJdSwma',
+    sendMessage = async () => {
+        const userToken = await AsyncStorage.getItem('userToken');
+        axios.post('http://hypefash.com/public/api/v1/message/add?sid=' + JSON.parse(userToken),{
             message: this.state.chatMessage,
             recieverid: 1
         })

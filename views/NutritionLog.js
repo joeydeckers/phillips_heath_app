@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { SafeAreaView, View, FlatList, StyleSheet, Text, TouchableOpacity,ActivityIndicator } from 'react-native'
+import { SafeAreaView, View, FlatList, StyleSheet, Text, TouchableOpacity,ActivityIndicator,AsyncStorage } from 'react-native'
 import axios from 'axios'
 import { Colors } from 'react-native/Libraries/NewAppScreen'
 import Icon from 'react-native-vector-icons/Feather';
@@ -13,11 +13,14 @@ export default class NutritionLog extends Component {
         loading: true
     }
 
-    getNutritionLog = (currentDay) => {
-        
-        axios.get('http://hypefash.com/public/api/v1/client/meals/list?sid=$2y$10$rUUP/U9TfxGWImRtY.5zVOQbmJkocf6Pb8yKEHKwtX7yNlRgHsYCC&day=' + currentDay + '&option=' + this.state.option)
+    getNutritionLog  = async (currentDay) => {
+        const userToken = await AsyncStorage.getItem('userToken');
+        axios.get('http://hypefash.com/public/api/v1/client/meals/list?sid=' + JSON.parse(userToken) + '&day=' + currentDay + '&option=' + this.state.option)
             .then((response) => {
-                this.setState({ nutritionLog: response.data.list, day: response.data.day, loading: false });     
+                this.setState({ 
+                    nutritionLog: response.data.list, 
+                    day: response.data.day, 
+                    loading: false });     
             })
     }
 
