@@ -16,8 +16,9 @@ import NutritionLog from './views/NutritionLog'
 import store from './src/store'
 import {Provider} from 'react-redux'
 
-class AuthLoadingScreen extends React.Component {
+console.disableYellowBox = true;
 
+class AuthLoadingScreen extends React.Component {
 async getToken() {
   try {
     let userToken = await AsyncStorage.getItem("userToken");

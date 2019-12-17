@@ -40,7 +40,7 @@ export default class Chat extends Component{
         const userToken = await AsyncStorage.getItem('userToken');
         axios.post('http://hypefash.com/public/api/v1/message/add/patient?sid=' + JSON.parse(userToken),{
             message: this.state.chatMessage,
-            recieverid: 1
+            recieverid: this.state.recieverid
         })
         .then((response) => {
             this.getMessages();

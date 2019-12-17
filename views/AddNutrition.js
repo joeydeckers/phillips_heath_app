@@ -51,9 +51,12 @@ export default class AddNutrition extends Component{
 
         })
         .then((response)=>{
-            this.props.navigation.navigate('NutritionResult', {
-                baseDose: response.data[0].basedose,
-              });
+            if(this.state.meal){
+                this.props.navigation.navigate('NutritionResult', {
+                    baseDose: response.data[0].basedose,
+                  });
+            }
+
 
         })
         .catch((error)=>{

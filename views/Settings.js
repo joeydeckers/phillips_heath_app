@@ -21,9 +21,9 @@ export default class Login extends Component{
             axios.get('http://hypefash.com/public/api/v1/client/info?sid=' + JSON.parse(userToken))
             .then((response) => {
                 this.setState({
-                    email:response.data.email,
-                    name: response.data.name,
-                    insulinsensitivity: response.data.insulinsensitivity
+                    email:response.data.email || "Geen email",
+                    name: response.data.name || "Geen naam",
+                    insulinsensitivity: response.data.insulinsensitivity || "Insulinewaarde niet ingevuld"
                 })
             })
             .catch((error) => {
