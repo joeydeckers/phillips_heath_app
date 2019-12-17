@@ -10,9 +10,30 @@ export default class Login extends Component{
         this.props.navigation.navigate('Login');
       };
 
-    getUserInfo(){
-        axios.get('');
-    }  
+      state = {
+        email: '',
+        name: '',
+        insulinsensitivity: ''
+    }
+
+        getUserInfo = async () => {
+            const userToken = await AsyncStorage.getItem('userToken');
+            axios.get('http://hypefash.com/public/api/v1/client/info?sid=' + JSON.parse(userToken))
+            .then((response) => {
+                this.setState({
+                    email:response.data.email,
+                    name: response.data.name,
+                    insulinsensitivity: response.data.insulinsensitivity
+                })
+            })
+            .catch((error) => {
+                alert(error)
+            })
+        }
+
+        componentDidMount(){
+            this.getUserInfo();
+        } 
 
     render(){
         return(
@@ -40,9 +61,9 @@ export default class Login extends Component{
                         </TouchableOpacity> 
                     </View>  */}
                     <View style = {styles.containerButton}>                     
-                        <Text style ={styles.passwordButtonText}>Email:</Text>
-                        <Text style ={styles.passwordButtonText}>Bloedwaarde:</Text>
-                        <Text style ={styles.passwordButtonText}>Naam:</Text>
+                        <Text style ={styles.passwordButtonText}>Email: {this.state.email}</Text>
+                        <Text style ={styles.passwordButtonText}>Bloedwaarde: {this.state.insulinsensitivity}</Text>
+                        <Text style ={styles.passwordButtonText}>Naam: {this.state.name}</Text>
 
                     </View>
                     <View style = {styles.containerButton}>                     
