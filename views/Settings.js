@@ -18,7 +18,7 @@ export default class Login extends Component{
 
         getUserInfo = async () => {
             const userToken = await AsyncStorage.getItem('userToken');
-            axios.get('http://hypefash.com/public/api/v1/client/info?sid=' + JSON.parse(userToken))
+            axios.get('https://pivoxa.nl/public/api/v1/client/info?sid=' + JSON.parse(userToken))
             .then((response) => {
                 this.setState({
                     email:response.data.email || "Geen email",

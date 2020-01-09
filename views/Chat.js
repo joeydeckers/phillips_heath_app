@@ -23,7 +23,7 @@ export default class Chat extends Component{
 
     getMessages = async () => {
         const userToken = await AsyncStorage.getItem('userToken');
-        axios.get('http://hypefash.com/public/api/v1/message/getall/patient?sid=' + JSON.parse(userToken) + '&recieverid=1')
+        axios.get('https://pivoxa.nl/public/api/v1/message/getall/patient?sid=' + JSON.parse(userToken) + '&recieverid=1')
         .then((response) => {
             this.setState({
                 chatMessages:response.data.chats,
@@ -38,12 +38,15 @@ export default class Chat extends Component{
 
     sendMessage = async () => {
         const userToken = await AsyncStorage.getItem('userToken');
-        axios.post('http://hypefash.com/public/api/v1/message/add/patient?sid=' + JSON.parse(userToken),{
+        axios.post('https://pivoxa.nl/public/api/v1/message/add/patient?sid=' + JSON.parse(userToken),{
             message: this.state.chatMessage,
             recieverid: this.state.recieverid
         })
         .then((response) => {
             this.getMessages();
+            this.setState({
+              chatMessage: ""
+          })
         })
     }
 

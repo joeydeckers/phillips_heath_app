@@ -44,7 +44,7 @@ export default class AddNutrition extends Component{
  
     getInsulin = async () => {
         const userToken = await AsyncStorage.getItem('userToken');
-        axios.post('http://hypefash.com/public/api/v1/client/insulin/calculate?sid=' + JSON.parse(userToken),{
+        axios.post('http://pivoxa.nl/public/api/v1/client/insulin/calculate?sid=' + JSON.parse(userToken),{
             carbs: this.state.carbs,
             actualbloodsugar: this.state.actualBloodSugar,
             differencebloodsugar: this.state.targetBloodSugar,
@@ -65,7 +65,7 @@ export default class AddNutrition extends Component{
     }    
     getInsulinMeal = async () => {
         const userToken = await AsyncStorage.getItem('userToken');
-        axios.post('http://hypefash.com/public/api/v1/client/meals/add?sid=' + JSON.parse(userToken),{
+        axios.post('http://pivoxa.nl/public/api/v1/client/meals/add?sid=' + JSON.parse(userToken),{
             name: this.state.meal,
             daypart: 1,
             carbohydrates: this.state.carbs,

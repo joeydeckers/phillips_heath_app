@@ -15,7 +15,7 @@ export default class NutritionLog extends Component {
 
     getNutritionLog  = async (currentDay) => {
         const userToken = await AsyncStorage.getItem('userToken');
-        axios.get('http://hypefash.com/public/api/v1/client/meals/list?sid=' + JSON.parse(userToken) + '&day=' + currentDay + '&option=' + this.state.option)
+        axios.get('https://pivoxa.nl/public/api/v1/client/meals/list?sid=' + JSON.parse(userToken) + '&day=' + currentDay + '&option=' + this.state.option)
             .then((response) => {
                 this.setState({ 
                     nutritionLog: response.data.list, 
