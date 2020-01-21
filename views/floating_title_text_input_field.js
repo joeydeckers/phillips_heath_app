@@ -99,7 +99,7 @@ const Styles = StyleSheet.create({
   textInput: {
     fontSize: 15,
     marginTop: 5,
-    fontWeight: 'bold',
+    fontWeight: '600',
     color: 'black',
   },
   error: {

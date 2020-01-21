@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { SafeAreaView, View, FlatList, StyleSheet, Text, TouchableOpacity,ActivityIndicator,AsyncStorage } from 'react-native'
+import { SafeAreaView, View, FlatList, StyleSheet,ScrollView,StatusBar, Text, TouchableOpacity,ActivityIndicator,AsyncStorage,Animated,Dimensions } from 'react-native'
 import axios from 'axios'
 import { Colors } from 'react-native/Libraries/NewAppScreen'
 import Icon from 'react-native-vector-icons/Feather';
@@ -9,17 +9,27 @@ export default class NutritionLog extends Component {
         header: null,
     };
     
-    state = {
-        nutritionLog: [],
-        day: '',
-        option: '',
-        loading: true
-    }
+    
+    constructor(props) {
+        super(props);
+    
+        this.offset = 0;
+        this.state = {
+          scrollOffset: new Animated.Value(0),
+          nutritionLog: [],
+          day: '',
+          option: '',
+          loading: true
+        };
+      }
+
+
 
     getNutritionLog  = async (currentDay) => {
         const userToken = await AsyncStorage.getItem('userToken');
         axios.get('https://hypefash.com/public/api/v1/client/meals/list?sid=' + JSON.parse(userToken) + '&day=' + currentDay + '&option=' + this.state.option)
             .then((response) => {
+                console.log('https://hypefash.com/public/api/v1/client/meals/list?sid=' + JSON.parse(userToken) + '&day=' + currentDay + '&option=' + this.state.option)
                 this.setState({ 
                     nutritionLog: response.data.list, 
                     day: response.data.day, 
@@ -29,7 +39,7 @@ export default class NutritionLog extends Component {
 
 
     componentDidMount() {
-        
+        this.state.scrollOffset.addListener(({ value }) => (this.offset = value));
         var date = new Date().getDate(); //Current Date
         var month = new Date().getMonth() + 1; //Current Month
         var year = new Date().getFullYear(); //Current Year
@@ -38,7 +48,14 @@ export default class NutritionLog extends Component {
        
         var currentDay = year.toString() + '-' + month.toString() + '-' + date.toString();
         this.getNutritionLog(currentDay);
+       
     }
+  
+    onScroll = e => {
+      const scrollSensitivity = 4 / 3;
+      const offset = e.nativeEvent.contentOffset.y / scrollSensitivity;
+      this.state.scrollOffset.setValue(offset);
+    };
 
     checkToday() {
         
@@ -114,58 +131,170 @@ export default class NutritionLog extends Component {
         this.getNutritionLog(currentDay);
     }
 
+
+
+    renderItem = data => (
+        <TouchableOpacity style={styles.card}>
+          <View style={styles.cartcontent}>
+            <View style={styles.containerDetailsLeft}>
+    <Text style={styles.sellerTextItem}>{data.item.carbohydrates} kcal. | {data.item.name}</Text>
+            </View>
+            <View style={styles.containerDetailsRight}>
+              <Text style={styles.sellerTextItem}>{data.item.time}</Text>
+            </View>
+          </View>
+        </TouchableOpacity>
+      );
+    
+      FlatListItemSeparator = () => {
+        return (
+          <View
+            style={{
+              height: 0.5,
+              width: "100%"
+            }}
+          />
+        );
+      };
+    
+      showCatData() {
+        if (this.state.nutritionLog.length == 0) {
+          return (
+            <Text style={styles.emptytransaction}>
+              Geen waardes toegevoegd.
+            </Text>
+          );
+        } else {
+          return (
+            <FlatList
+              data={this.state.nutritionLog}
+              ItemSeparatorComponent={this.FlatListItemSeparator}
+              renderItem={item => this.renderItem(item)}
+              keyExtractor={item => item.id}
+            />
+          );
+        }
+      }
+
+
     render() {
+        const { scrollOffset } = this.state;
+        const screenWidth = Dimensions.get('window').width;
+
         if(this.state.loading){
             return(<View><ActivityIndicator size="large" color="#0000ff" /></View>);
         }
         return (
-            <View style={styles.container}>
+            <SafeAreaView >
+            <Animated.View
+              style={[
+                styles.header,
+                {
+                  paddingHorizontal: screenWidth * 0.05,
+                  width: screenWidth,
+                  height: scrollOffset.interpolate({
+                    inputRange: [0, 200],
+                    outputRange: [100, 50],
+                    extrapolate: 'clamp',
+                  }),
+                },
+              ]}>
+              <View style={{
+                justifyContent: 'flex-start', textAlignVertical: 'center', flexDirection: 'row', alignItems: 'center',
+                textAlign: 'center',
+              }}>
+                <Animated.Text
+                  onLayout={e => {
+                    if (this.offset === 0 && this.state.titleWidth === 0) {
+                      const titleWidth = e.nativeEvent.layout.width;
+                      this.setState({ titleWidth });
+                    }
+                  }}
+                  style={{
+                    fontWeight: 'bold',
+                    justifyContent: 'flex-start', textAlignVertical: 'center',
+                    fontSize: scrollOffset.interpolate({
+                      inputRange: [0, 200],
+                      outputRange: [35, 25],
+                      extrapolate: 'clamp',
+                    }),
+                  }}>
+                  Mijn waardes
+              </Animated.Text>
+              </View>
+              {/* <Animated.View
+                style={{
+                  width: scrollOffset.interpolate({
+                    inputRange: [0, 200],
+                    outputRange: [screenWidth * 0.9 - this.state.titleWidth, 0],
+                    extrapolate: 'clamp',
+                  }),
+                }}
+              /> */}
+            </Animated.View>
+            <ScrollView style={styles.container} showsVerticalScrollIndicator={false} onScroll={this.onScroll}
+              scrollEventThrottle={20}>
+    
+              <StatusBar
+                backgroundColor="white"
+                barStyle="dark-content"
+                translucent={false}
+              />
                {this.checkToday()}
-                <View style={styles.tableTopContainer}><View style={styles.newRow}><View style={styles.item}><Text style={styles.headTitle}>Naam</Text></View><View style={styles.item}><Text style={styles.headTitle}>Koolh.</Text></View><View style={styles.item}><Text style={styles.headTitle}>Datum</Text></View></View>
-                </View>
-                <View style={styles.tableBottomContainer}>
-                    <SafeAreaView style={styles.itemContainer}>
-                        <FlatList
-                            data={this.state.nutritionLog}
-                            keyExtractor={(x, i) => i}
-                            renderItem={({ item }) =>
-                                <View style={styles.newRow}>
+        
+                <View style={styles.transactionscontainer}>
+            {this.showCatData()}
+          </View>
 
-                                    <View style={styles.item2}>
-                                        <Text style={styles.title}>{item.name}</Text>
-                                    </View>
-                                    <View style={styles.item2}>
-                                        <Text style={styles.title}>{item.carbohydrates}</Text>
-                                    </View>
-                                    <View style={styles.item2}>
-                                        <Text style={styles.title2}>{item.time}</Text>
-                                    </View>
-
-                                </View>} />
-
-
-                    </SafeAreaView>
-
-                </View>
                 <View style={styles.icon1}>
                     <View style={styles.icon2}>
-                        <TouchableOpacity onPress={() => {this.goWeekBack();}}><View><Icon name="chevrons-left" size={42} color="#4486FF" /></View></TouchableOpacity>
-                        <TouchableOpacity onPress={() => {this.goDayBack();}}><View><Icon name="chevron-left" size={42} color="#4486FF" /></View></TouchableOpacity>
-                        <TouchableOpacity onPress={() => {this.goDayNext();}}><View><Icon name="chevron-right" size={42} color="#4486FF" /></View></TouchableOpacity>
-                        <TouchableOpacity onPress={() => {this.goWeekNext();}}><View><Icon name="chevrons-right" size={42} color="#4486FF" /></View></TouchableOpacity>
+                        <TouchableOpacity onPress={() => {this.goWeekBack();}}><View><Icon name="chevrons-left" size={42} color="#1976d2" /></View></TouchableOpacity>
+                        <TouchableOpacity onPress={() => {this.goDayBack();}}><View><Icon name="chevron-left" size={42} color="#1976d2" /></View></TouchableOpacity>
+                        <TouchableOpacity onPress={() => {this.goDayNext();}}><View><Icon name="chevron-right" size={42} color="#1976d2" /></View></TouchableOpacity>
+                        <TouchableOpacity onPress={() => {this.goWeekNext();}}><View><Icon name="chevrons-right" size={42} color="#1976d2" /></View></TouchableOpacity>
                     </View>
                 </View>
-
-            </View>
+                <View style={{height: 1000, width: '100%'}}></View>
+            </ScrollView>
+           
+            </SafeAreaView>
         )
     }
 }
 
 const styles = StyleSheet.create({
     container: {
-        marginTop: 20,
-        padding: 25
-    },
+          paddingBottom: 20,
+          paddingTop: 10,
+          paddingLeft:20,
+          paddingRight:20,
+          backgroundColor: '#fff'
+        },
+        header: {
+          flexDirection: 'row',
+          alignItems: 'flex-end',
+          justifyContent: 'flex-start',
+          paddingLeft: 20,
+          paddingRight: 20,
+          paddingBottom: 10,
+          backgroundColor: '#fff'
+        },
+        card: {
+            flex: 1,
+            width: "100%",
+        
+            backgroundColor: "#fff",
+            borderBottomColor: "#707070"
+          },
+          transactionscontainer: {
+            marginBottom: 15
+          },
+          containerDetailsLeft: {
+            width: "100%",
+            flex: 1,
+            flexDirection: "row",
+            justifyContent: "flex-start"
+          },
     containerText: {
         fontSize: 24,
         padding: 5,
@@ -178,6 +307,14 @@ const styles = StyleSheet.create({
 
 
     },
+    cartcontent: {
+        backgroundColor: "#fff",
+        paddingTop: 10,
+        paddingBottom: 10,
+        borderBottomWidth: 3,
+        borderBottomColor: "#F8F8F8",
+        flexDirection: "row"
+      },
     newRow: {
         flexDirection: 'row',
         flex: 1,
@@ -197,12 +334,22 @@ const styles = StyleSheet.create({
         marginTop: 5,
         marginBottom: 15
 
+
     },
+    emptytransaction: {
+        fontWeight: "bold",
+        fontSize: 16,
+        marginTop: 10,
+        marginLeft:10,
+        alignItems: "flex-start",
+        justifyContent: "flex-start",
+        textAlign: "left"
+      },
     tableTopContainer: {
         borderRadius: 12,
         borderBottomLeftRadius: 0,
         borderBottomRightRadius: 0,
-        backgroundColor: '#4486FF',
+        backgroundColor: '#1976d2',
         height: 30,
         padding: 7,
         width: '100%',
@@ -212,12 +359,16 @@ const styles = StyleSheet.create({
         borderRadius: 12,
         borderTopRightRadius: 0,
         borderTopLeftRadius: 0,
-        borderColor: '#4486FF',
+        borderColor: '#1976d2',
         borderTopColor: '#0000',
         borderWidth: 2,
 
         width: '100%',
     },
+    sellerTextItem: {
+        fontWeight: "bold",
+        fontSize: 16
+      },
     item2: {
         width: '33%',
         justifyContent: 'center',
@@ -252,5 +403,6 @@ const styles = StyleSheet.create({
 
 
     },
+
 
 });

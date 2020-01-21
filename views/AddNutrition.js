@@ -130,13 +130,14 @@ export default class AddNutrition extends Component{
                 style={[
                   styles.button,
                   {
-                    backgroundColor: "#22242A",
+                    backgroundColor: "#4486FF",
                     flexDirection: "row",
+         
                     justifyContent: "center"
                   }
                 ]}
               >
-                <Text style={[{ color: "#fff" }, styles.buttonText]}>
+                <Text style={[{ color: "#fff",fontWeight: 'bold', }, styles.buttonText]}>
                   Toevoegen
                 </Text>
               </View>
@@ -146,7 +147,7 @@ export default class AddNutrition extends Component{
         else {
           return (
             <TouchableOpacity style={styles.buttonContainer} >
-              <View style={[styles.button, { backgroundColor: '#22242A', flexDirection: 'row', justifyContent: 'center', }]}>
+              <View style={[styles.button, { backgroundColor: '#4486FF', flexDirection: 'row', justifyContent: 'center', }]}>
                 <View
                   style={{
     
@@ -159,10 +160,11 @@ export default class AddNutrition extends Component{
                 <View
                   style={{
                     justifyContent: "flex-start",
+                    
                     flexDirection: "row"
                   }}
                 >
-                  <Text style={[{ color: '#fff' }, styles.buttonText]}>controleren</Text>
+                  <Text style={[{ color: '#fff',fontWeight: 'bold' }, styles.buttonText]}>controleren</Text>
                 </View>
     
               </View>
@@ -341,12 +343,12 @@ export default class AddNutrition extends Component{
                   attrName='meal'
                   title='Maaltijd'
                   value={this.state.meal}
-                  height={50}
+                  height={45}
                   autoFocus={true}
                   multi={false}
                   updateMasterState={this._updateMasterState}
                 />
-                <Text style={styles.helpText}>Hoeveel koolhydraten zit hier in?</Text>
+                <Text style={styles.helpText}>Hoeveel koolhydraten bevat deze maaltijd?</Text>
                 <FloatingTitleTextInputField
                   attrName='carbs'
                   title='Huidige koolhydraten'
@@ -355,7 +357,7 @@ export default class AddNutrition extends Component{
                   length={14}
                   autoFocus={true}
                   keyboardType={'numeric'}
-                  height={50}
+                  height={45}
                   updateMasterState={this._updateMasterState}
                 />
                 <Text style={styles.helpText}>Wat is jouw huidige bloedspiegel?</Text>
@@ -366,7 +368,7 @@ export default class AddNutrition extends Component{
                   multi={false}
                   autoFocus={true}
                   keyboardType={'numeric'}
-                  height={50}
+                  height={45}
                   updateMasterState={this._updateMasterState}
                 />
                 <Text style={styles.helpText}>Wat is jouw gewenste bloedspiegel?</Text>
@@ -377,7 +379,7 @@ export default class AddNutrition extends Component{
                   multi={false}
                   autoFocus={true}
                   keyboardType={'numeric'}
-                  height={50}
+                  height={45}
                   updateMasterState={this._updateMasterState}
                 />
     
@@ -419,13 +421,13 @@ export default class AddNutrition extends Component{
                     style={[
                       styles.button2,
                       {
-                        backgroundColor: "#000",
+                        backgroundColor: "#4486FF",
                         flexDirection: "row",
                         justifyContent: "center"
                       }
                     ]}
                   >
-                    <Text style={[{ color: "#fff" }, styles.buttonText]}>
+                    <Text style={[{ color: "#fff", fontWeight: 'bold' }, styles.buttonText]}>
                       Sluiten
                     </Text>
                   </TouchableOpacity>

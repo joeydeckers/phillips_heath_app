@@ -110,13 +110,13 @@ export default class PersonalInfo extends Component {
             style={[
               styles.button,
               {
-                backgroundColor: "#22242A",
+                backgroundColor: "#1976d2",
                 flexDirection: "row",
                 justifyContent: "center"
               }
             ]}
           >
-            <Text style={[{ color: "#fff" }, styles.buttonText]}>
+            <Text style={[{ color: "#fff", fontWeight: 'bold' }, styles.buttonText]}>
               Wijzigen opslaan
             </Text>
           </View>
@@ -126,7 +126,7 @@ export default class PersonalInfo extends Component {
     else {
       return (
         <TouchableOpacity style={styles.buttonContainer} >
-          <View style={[styles.button, { backgroundColor: '#22242A', flexDirection: 'row', justifyContent: 'center', }]}>
+          <View style={[styles.button, { backgroundColor: '#1976d2', flexDirection: 'row', justifyContent: 'center', }]}>
             <View
               style={{
 
@@ -142,7 +142,7 @@ export default class PersonalInfo extends Component {
                 flexDirection: "row"
               }}
             >
-              <Text style={[{ color: '#fff' }, styles.buttonText]}>controleren</Text>
+              <Text style={[{ color: '#fff', fontWeight: 'bold' }, styles.buttonText]}>controleren</Text>
             </View>
 
           </View>
@@ -248,7 +248,7 @@ export default class PersonalInfo extends Component {
             style={[
               styles.button,
               {
-                backgroundColor: "#22242A",
+                backgroundColor: "#1976d2",
                 flexDirection: "row",
                 justifyContent: "center"
               }
@@ -406,13 +406,13 @@ export default class PersonalInfo extends Component {
                 style={[
                   styles.button2,
                   {
-                    backgroundColor: "#000",
+                    backgroundColor: "#1976d2",
                     flexDirection: "row",
                     justifyContent: "center"
                   }
                 ]}
               >
-                <Text style={[{ color: "#fff" }, styles.buttonText]}>
+                <Text style={[{ color: "#fff", fontWeight: 'bold' }, styles.buttonText]}>
                   Sluiten
                 </Text>
               </TouchableOpacity>

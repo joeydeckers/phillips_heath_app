@@ -97,7 +97,7 @@ export default class Chat extends Component{
           <StatusBar backgroundColor="#22242A" barStyle="white-content" translucent={false} />
           <View style={styles.header}>
             {/* <Icon style={styles.backArrow} onPress={() => goBack()} name='chevron-left' size={24} color='#fff' /> */}
-            <Image style={styles.userProfile}  source={require("./../Images/default.jpg")} />
+            <Image style={styles.userProfile}  source={{ uri: this.state.recieverimage }}  />
             <View style={styles.chatInfo}>
         <Text style={styles.headerProfileName} >{this.state.doctor}</Text>
             </View>
@@ -109,8 +109,8 @@ export default class Chat extends Component{
   
           </View>
           <View style={styles.chatInputContainer}>
-            <TextInput ref={input => { this.textInput = input }} placeholderTextColor="#8A8A8F" value={this.state.text} onChangeText={this.textHandler} style={styles.chatInput} placeholder='Jouw bericht' />
-            <TouchableOpacity onPress={this.onSubmit}>
+            <TextInput ref={input => { this.textInput = input }} placeholderTextColor="#8A8A8F" value={this.state.chatMessage} onChangeText={this.messageHandler} style={styles.chatInput} placeholder='Jouw bericht' />
+            <TouchableOpacity onPress={this.sendMessage}>
               <Icon style={styles.sendIcon} name='send' size={15} color='#fff' />
             </TouchableOpacity>
           </View>
@@ -126,7 +126,7 @@ const styles = StyleSheet.create({
         marginBottom: 80,
         paddingLeft: 10,
         paddingRight: 10,
-        paddingBottom: 0
+        paddingBottom: 55
       },
       header: {
         padding: 10,
@@ -175,7 +175,7 @@ const styles = StyleSheet.create({
         color: '#fff'
       },
       chatLeft: {
-        backgroundColor: '#22242A',
+        backgroundColor: '#1976d2',
         color: '#fff',
         padding: 10,
         borderTopLeftRadius: 5,

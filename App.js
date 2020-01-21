@@ -167,8 +167,8 @@ componentDidMount() {
             activeTintColor: '#000', 
             lazy:true,
             showLabel: false, // hide labels
-            activeTintColor: '#000', // active icon color
-            inactiveTintColor: '#616161',  // inactive icon color
+            activeTintColor: '#1976d2', // active icon color
+            inactiveTintColor: '#000',  // inactive icon color
             style: {
                 backgroundColor: '#fff', // TabBar background
                 
