@@ -16,6 +16,7 @@ export default class Chat extends Component{
             chatMessage: "",
             chatMessages: [],
             userid: '',
+            doctor: '',
             recieverimage: 'https://hcplive.s3.amazonaws.com/v1_media/_image/happydoctor.jpg',
             recieverid: ''
         };
@@ -23,10 +24,11 @@ export default class Chat extends Component{
 
     getMessages = async () => {
         const userToken = await AsyncStorage.getItem('userToken');
-        axios.get('https://pivoxa.nl/public/api/v1/message/getall/patient?sid=' + JSON.parse(userToken) + '&recieverid=1')
+        axios.get('https://hypefash.com/public/api/v1/message/getall/patient?sid=' + JSON.parse(userToken) + '&recieverid=1')
         .then((response) => {
             this.setState({
                 chatMessages:response.data.chats,
+                doctor: response.data.doctor,
                 userid: response.data.userid,
                 recieverid: response.data.recieverid,
             })
@@ -38,7 +40,7 @@ export default class Chat extends Component{
 
     sendMessage = async () => {
         const userToken = await AsyncStorage.getItem('userToken');
-        axios.post('https://pivoxa.nl/public/api/v1/message/add/patient?sid=' + JSON.parse(userToken),{
+        axios.post('https://hypefash.com/public/api/v1/message/add/patient?sid=' + JSON.parse(userToken),{
             message: this.state.chatMessage,
             recieverid: this.state.recieverid
         })
@@ -91,22 +93,28 @@ export default class Chat extends Component{
 
     render(){
         return(
-            <SafeAreaView style={{ backgroundColor: '#fff', height: '100%', }}>
-        <StatusBar backgroundColor="#22242A" barStyle="white-content" translucent={false} />
-        
-        <View style={styles.container}>
-          <View style={{ flexDirection: "row", height: '100%' }}>
-            {this.createChats()}
+          <SafeAreaView style={{ backgroundColor: '#fff', height: '100%', }}>
+          <StatusBar backgroundColor="#22242A" barStyle="white-content" translucent={false} />
+          <View style={styles.header}>
+            {/* <Icon style={styles.backArrow} onPress={() => goBack()} name='chevron-left' size={24} color='#fff' /> */}
+            <Image style={styles.userProfile}  source={require("./../Images/default.jpg")} />
+            <View style={styles.chatInfo}>
+        <Text style={styles.headerProfileName} >{this.state.doctor}</Text>
+            </View>
           </View>
-
-        </View>
-        <View style={styles.chatInputContainer}>
-          <TextInput ref={input => { this.textInput = input }} placeholderTextColor="#8A8A8F" value={this.state.chatMessage} onChangeText={this.messageHandler} style={styles.chatInput} placeholder='Jouw bericht' />
-          <TouchableOpacity onPress={this.sendMessage}>
-            <Icon style={styles.sendIcon} name='send' size={15} color='#fff' />
-          </TouchableOpacity>
-        </View>
-      </SafeAreaView>
+          <View style={styles.container}>
+            <View style={{ flexDirection: "row", height: '100%' }}>
+              {this.createChats()}
+            </View>
+  
+          </View>
+          <View style={styles.chatInputContainer}>
+            <TextInput ref={input => { this.textInput = input }} placeholderTextColor="#8A8A8F" value={this.state.text} onChangeText={this.textHandler} style={styles.chatInput} placeholder='Jouw bericht' />
+            <TouchableOpacity onPress={this.onSubmit}>
+              <Icon style={styles.sendIcon} name='send' size={15} color='#fff' />
+            </TouchableOpacity>
+          </View>
+        </SafeAreaView>
         )
     }
 }
@@ -122,7 +130,11 @@ const styles = StyleSheet.create({
       },
       header: {
         padding: 10,
-        paddingTop: Platform.OS === 'ios' ? 40 : 15,
+        //justifyContent: 'center', 
+        alignItems: 'center' ,
+        paddingTop: 15,
+        textAlignVertical: 'center',
+        textAlign: 'center',
         paddingBottom: 15,
         flexDirection: 'row',
         backgroundColor: '#22242A',
@@ -138,7 +150,8 @@ const styles = StyleSheet.create({
       },
       headerProfileName: {
         color: '#fff',
-        fontWeight: 'bold'
+        fontSize: 20,
+        fontWeight: '600'
       },
       chatInfo: {
         marginLeft: 15,
@@ -146,10 +159,10 @@ const styles = StyleSheet.create({
       userProfile: {
         height: 35,
         width: 35,
+        marginLeft: 15,
         borderRadius: 5,
         borderWidth: 1,
         borderColor: '#fff',
-        marginTop: 2
       },
       userProfileChat: {
         height: 30,
@@ -209,7 +222,6 @@ const styles = StyleSheet.create({
         borderRadius: 18
       },
       backArrow: {
-        marginTop: 8,
         marginRight: 15
       },
       time: {

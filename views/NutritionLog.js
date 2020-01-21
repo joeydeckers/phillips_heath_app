@@ -5,7 +5,10 @@ import { Colors } from 'react-native/Libraries/NewAppScreen'
 import Icon from 'react-native-vector-icons/Feather';
 
 export default class NutritionLog extends Component {
-
+    static navigationOptions = {
+        header: null,
+    };
+    
     state = {
         nutritionLog: [],
         day: '',
@@ -15,7 +18,7 @@ export default class NutritionLog extends Component {
 
     getNutritionLog  = async (currentDay) => {
         const userToken = await AsyncStorage.getItem('userToken');
-        axios.get('https://pivoxa.nl/public/api/v1/client/meals/list?sid=' + JSON.parse(userToken) + '&day=' + currentDay + '&option=' + this.state.option)
+        axios.get('https://hypefash.com/public/api/v1/client/meals/list?sid=' + JSON.parse(userToken) + '&day=' + currentDay + '&option=' + this.state.option)
             .then((response) => {
                 this.setState({ 
                     nutritionLog: response.data.list, 

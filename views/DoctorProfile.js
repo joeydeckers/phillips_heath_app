@@ -3,6 +3,11 @@ import {View, Text, StyleSheet, TextInput, TouchableOpacity, ScrollView,Image,Bu
 import Icon from 'react-native-vector-icons/Feather';
 
 export default class Login extends Component{
+
+    static navigationOptions = {
+        header: null,
+    };
+    
     render(){
         return(
             <ScrollView style = {styles.container}>

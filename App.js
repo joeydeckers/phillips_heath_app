@@ -13,6 +13,7 @@ import AddNutrition from './views/AddNutrition'
 import NutritionResult from './views/NutritionResult'
 import Settings from './views/Settings'
 import NutritionLog from './views/NutritionLog'
+import PersonalInfo from './views/PersonalInfo'
 import store from './src/store'
 import {Provider} from 'react-redux'
 
@@ -92,6 +93,9 @@ componentDidMount() {
     const Stack4 = createStackNavigator({
       MainUserSettings: {
         screen: Settings
+      },
+      PersonalInfo: {
+        screen: PersonalInfo
       }
     });
     

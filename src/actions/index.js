@@ -4,7 +4,7 @@ export const login = (user) => {
 
     return (dispatch, getState) => {
         dispatch({ type: 'GET_USER_INFO' })
-        return axios.post('https://pivoxa.nl/public/api/v1/client/login',{
+        return axios.post('https://hypefash.com/public/api/v1/client/login',{
             username: user.username,
             password: user.password
         })

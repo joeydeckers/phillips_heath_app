@@ -4,7 +4,7 @@ export const nutrition = (nutritionInfo) => {
 
     return (dispatch, getState) => {
         dispatch({ type: 'GET_USER_INFO' })
-        return axios.post('https://pivoxa.nl/public/api/v1/client/insulin/calculate',{
+        return axios.post('https://hypefash.com/public/api/v1/client/insulin/calculate',{
             carbs: nutritionInfo.carbs,
             actualbloodsugar: nutritionInfo.actualBloodSugar,
             differencebloodsugar: nutritionInfo.targetBloodSugar,
